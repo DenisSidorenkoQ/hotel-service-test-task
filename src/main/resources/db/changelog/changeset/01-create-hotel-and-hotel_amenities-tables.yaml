@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: D.Sidorenko
+      changes:
+        - createTable:
+            tableName: hotels
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(2000)
+              - column:
+                  name: brand
+                  type: varchar(255)
+              - column:
+                  name: house_number
+                  type: varchar(50)
+              - column:
+                  name: street
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: country
+                  type: varchar(255)
+              - column:
+                  name: post_code
+                  type: varchar(50)
+              - column:
+                  name: phone
+                  type: varchar(50)
+              - column:
+                  name: email
+                  type: varchar(255)
+              - column:
+                  name: check_in
+                  type: varchar(10)
+              - column:
+                  name: check_out
+                  type: varchar(10)
+
+        - createTable:
+            tableName: hotel_amenities
+            columns:
+              - column:
+                  name: hotel_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amenity
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: hotel_amenities
+            baseColumnNames: hotel_id
+            constraintName: fk_hotel_amenities_hotel
+            referencedTableName: hotels
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - createIndex:
+            tableName: hotels
+            indexName: idx_hotels_city
+            columns:
+              - column:
+                  name: city
