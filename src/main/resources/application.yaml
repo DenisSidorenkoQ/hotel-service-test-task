@@ -1,0 +1,7 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: hotel-service-test-task
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
