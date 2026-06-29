@@ -30,10 +30,9 @@ public class HotelEntity {
     @Embedded
     private HotelArrivalTimeEmbedded arrivalTime;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "hotel_amenities", joinColumns = @JoinColumn(name = "hotel_id"))
-    @Column(name = "amenity")
-    private List<String> amenities = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
+    private List<HotelAmenitiesEntity> amenities = new ArrayList<>();
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -49,7 +48,7 @@ public class HotelEntity {
     public void setContacts(HotelContactsEmbedded contacts) { this.contacts = contacts; }
     public HotelArrivalTimeEmbedded getArrivalTime() { return arrivalTime; }
     public void setArrivalTime(HotelArrivalTimeEmbedded arrivalTime) { this.arrivalTime = arrivalTime; }
-    public List<String> getAmenities() { return amenities; }
-    public void setAmenities(List<String> amenities) { this.amenities = amenities; }
+    public List<HotelAmenitiesEntity> getAmenities() { return amenities; }
+    public void setAmenities(List<HotelAmenitiesEntity> amenities) { this.amenities = amenities; }
 }
 
