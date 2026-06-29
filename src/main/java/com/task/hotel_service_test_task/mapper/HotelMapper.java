@@ -2,11 +2,11 @@ package com.task.hotel_service_test_task.mapper;
 
 import com.task.hotel_service_test_task.dto.*;
 import com.task.hotel_service_test_task.entity.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class HotelMapper {
     public HotelShortInfoDto hotelShortInfoDtoFromHotelEntity(HotelEntity entity) {
         String address = entity.getAddress() != null ? entity.getAddress().toString() : "";
@@ -51,7 +51,7 @@ public class HotelMapper {
         HotelContactsDto contactsDto = HotelContactsDtoFromHotelContactsEmbedded(entity.getContacts());
         HotelArrivalTimeDto arrivalTimeDto = hotelArrivalTimeDtoFromHotelArrivalTimeEmbedded(entity.getArrivalTime());
         List<String> amenitiesList = entity.getAmenities().stream()
-                .map(HotelAmenitiesEntity::getAmenity)
+                .map(HotelAmenitiesEntity::getName)
                 .toList();
         return new HotelFullInfoDto(entity.getId(), entity.getName(),
                 entity.getDescription(), entity.getBrand(), addressDto, contactsDto, arrivalTimeDto, amenitiesList);

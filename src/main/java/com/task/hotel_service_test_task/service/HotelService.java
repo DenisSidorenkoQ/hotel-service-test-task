@@ -6,9 +6,10 @@ import com.task.hotel_service_test_task.dto.HotelShortInfoDto;
 import com.task.hotel_service_test_task.entity.HotelEntity;
 import com.task.hotel_service_test_task.mapper.HotelMapper;
 import com.task.hotel_service_test_task.repository.HotelRepository;
+import com.task.hotel_service_test_task.repository.specification.HotelSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,5 +38,19 @@ public class HotelService {
     public Optional<HotelFullInfoDto> getHotelById(Long id) {
         Optional<HotelEntity> hotelEntityOptional = hotelRepository.findById(id);
         return hotelEntityOptional.map(hotelMapper::hotelFullInfoDtoFromHotelEntity);
+    }
+
+    public List<HotelShortInfoDto>  searchHotels(String name, String brand, String city, String country, String amenity) {
+        Specification<HotelEntity> spec = Specification.allOf(
+                HotelSpecifications.hasName(name),
+                HotelSpecifications.hasBrand(brand),
+                HotelSpecifications.hasCity(city),
+                HotelSpecifications.hasCountry(country),
+                HotelSpecifications.hasAmenity(amenity)
+        );
+
+        return hotelRepository.findAll(spec).stream()
+                .map(hotelMapper::hotelShortInfoDtoFromHotelEntity)
+                .collect(Collectors.toList());
     }
 }

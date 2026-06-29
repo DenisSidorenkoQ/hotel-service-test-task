@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: D.Sidorenko
+      changes:
+        - renameColumn:
+            tableName: hotel_amenities
+            oldColumnName: amenity
+            newColumnName: name
+            columnDataType: varchar(255)

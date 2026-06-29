@@ -14,12 +14,12 @@ public class HotelAmenitiesEntity {
     private Long hotelId;
 
     @Column
-    private String amenity;
+    private String name;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Long getHotelId() { return hotelId; }
     public void setHotelId(Long hotelId) { this.hotelId = hotelId; }
-    public String getAmenity() { return amenity; }
-    public void setAmenity(String amenity) { this.amenity = amenity; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }

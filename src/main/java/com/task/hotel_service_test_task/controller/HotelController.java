@@ -38,4 +38,14 @@ public class HotelController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/search")
+    public List<HotelShortInfoDto> searchHotels(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String amenities) {
+        return hotelService.searchHotels(name, brand, city, country, amenities);
+    }
 }
