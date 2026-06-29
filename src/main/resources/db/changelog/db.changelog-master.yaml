@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changeset/01-create-hotel-and-hotel_amenities-tables.yaml
+  - include:
+      file: db/changelog/changeset/02-change-house_number-type-in-hotels-table.yaml

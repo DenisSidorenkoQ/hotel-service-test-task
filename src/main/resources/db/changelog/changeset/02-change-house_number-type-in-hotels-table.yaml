@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: D.Sidorenko
+      changes:
+        - modifyDataType:
+            tableName: hotels
+            columnName: house_number
+            newDataType: integer
+        - addColumn:
+            tableName: hotel_amenities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - createIndex:
+            tableName: hotel_amenities
+            indexName: idx_hotel_amenities_hotel_id
+            columns:
+              - column:
+                  name: hotel_id
