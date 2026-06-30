@@ -8,7 +8,7 @@ databaseChangeLog:
             columnName: house_number
             newDataType: integer
         - addColumn:
-            tableName: hotel_amenities
+            tableName: amenities
             columns:
               - column:
                   name: id
@@ -18,8 +18,8 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
         - createIndex:
-            tableName: hotel_amenities
-            indexName: idx_hotel_amenities_hotel_id
+            tableName: amenities
+            indexName: idx_amenities_hotel_id
             columns:
               - column:
                   name: hotel_id

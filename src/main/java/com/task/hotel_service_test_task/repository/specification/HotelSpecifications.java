@@ -1,6 +1,6 @@
 package com.task.hotel_service_test_task.repository.specification;
 
-import com.task.hotel_service_test_task.entity.HotelAmenitiesEntity;
+import com.task.hotel_service_test_task.entity.AmenitiesEntity;
 import com.task.hotel_service_test_task.entity.HotelEntity;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
@@ -32,7 +32,7 @@ public class HotelSpecifications {
             if (amenity == null || amenity.isBlank()) {
                 return null;
             }
-            Join<HotelEntity, HotelAmenitiesEntity> amenitiesJoin = root.join("amenities");
+            Join<HotelEntity, AmenitiesEntity> amenitiesJoin = root.join("amenities");
 
             return cb.equal(cb.lower(amenitiesJoin.get("name")), amenity.toLowerCase());
         };

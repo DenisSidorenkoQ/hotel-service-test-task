@@ -1,7 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/changeset/01-create-hotel-and-hotel_amenities-tables.yaml
+      file: db/changelog/changeset/01-create-hotel-and-amenities-tables.yaml
   - include:
       file: db/changelog/changeset/02-change-house_number-type-in-hotels-table.yaml
-  - include:
-      file: db/changelog/changeset/03-change-amenity-field-naming-in-hotel_amenities-table.yaml

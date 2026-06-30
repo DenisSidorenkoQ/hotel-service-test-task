@@ -32,7 +32,23 @@ public class HotelEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
-    private List<HotelAmenitiesEntity> amenities = new ArrayList<>();
+    private List<AmenitiesEntity> amenities = new ArrayList<>();
+
+    public boolean addAmenity(AmenitiesEntity amenity) {
+        if (this.amenities == null) {
+            this.amenities = new ArrayList<>();
+        }
+
+        boolean alreadyExists = this.amenities.stream()
+                .anyMatch(a -> a.getName().equalsIgnoreCase(amenity.getName()));
+
+        if (!alreadyExists) {
+            this.amenities.add(amenity);
+            amenity.setHotel(this);
+            return true;
+        }
+        return false;
+    }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -48,7 +64,7 @@ public class HotelEntity {
     public void setContacts(HotelContactsEmbedded contacts) { this.contacts = contacts; }
     public HotelArrivalTimeEmbedded getArrivalTime() { return arrivalTime; }
     public void setArrivalTime(HotelArrivalTimeEmbedded arrivalTime) { this.arrivalTime = arrivalTime; }
-    public List<HotelAmenitiesEntity> getAmenities() { return amenities; }
-    public void setAmenities(List<HotelAmenitiesEntity> amenities) { this.amenities = amenities; }
+    public List<AmenitiesEntity> getAmenities() { return amenities; }
+    public void setAmenities(List<AmenitiesEntity> amenities) { this.amenities = amenities; }
 }
 

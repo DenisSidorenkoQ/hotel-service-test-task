@@ -3,10 +3,13 @@ package com.task.hotel_service_test_task.service;
 import com.task.hotel_service_test_task.dto.HotelCreateRequest;
 import com.task.hotel_service_test_task.dto.HotelFullInfoDto;
 import com.task.hotel_service_test_task.dto.HotelShortInfoDto;
+import com.task.hotel_service_test_task.entity.AmenitiesEntity;
 import com.task.hotel_service_test_task.entity.HotelEntity;
 import com.task.hotel_service_test_task.mapper.HotelMapper;
 import com.task.hotel_service_test_task.repository.HotelRepository;
 import com.task.hotel_service_test_task.repository.specification.HotelSpecifications;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -52,5 +55,27 @@ public class HotelService {
         return hotelRepository.findAll(spec).stream()
                 .map(hotelMapper::hotelShortInfoDtoFromHotelEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void addAmenities(Long id, List<String> amenities) {
+        HotelEntity hotelEntity = hotelRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel not found with id: " + id));
+
+        Set<String> uniqueIncomingAmenities = new LinkedHashSet<>(amenities);
+
+        List<AmenitiesEntity> amenitiesEntityList =
+                hotelMapper.amenitiesEntityListFromStringList(new ArrayList<>(uniqueIncomingAmenities));
+
+        boolean isChanged = false;
+        for (AmenitiesEntity amenity : amenitiesEntityList) {
+            if (hotelEntity.addAmenity(amenity)) {
+                isChanged = true;
+            }
+        }
+
+        if (isChanged) {
+            hotelRepository.save(hotelEntity);
+        }
     }
 }

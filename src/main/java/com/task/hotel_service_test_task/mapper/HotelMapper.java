@@ -4,6 +4,7 @@ import com.task.hotel_service_test_task.dto.*;
 import com.task.hotel_service_test_task.entity.*;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -51,10 +52,18 @@ public class HotelMapper {
         HotelContactsDto contactsDto = HotelContactsDtoFromHotelContactsEmbedded(entity.getContacts());
         HotelArrivalTimeDto arrivalTimeDto = hotelArrivalTimeDtoFromHotelArrivalTimeEmbedded(entity.getArrivalTime());
         List<String> amenitiesList = entity.getAmenities().stream()
-                .map(HotelAmenitiesEntity::getName)
+                .map(AmenitiesEntity::getName)
                 .toList();
         return new HotelFullInfoDto(entity.getId(), entity.getName(),
                 entity.getDescription(), entity.getBrand(), addressDto, contactsDto, arrivalTimeDto, amenitiesList);
+    }
+
+    public List<AmenitiesEntity> amenitiesEntityListFromStringList(List<String> amenities) {
+        List<AmenitiesEntity> amenitiesEntityList = new ArrayList<>();
+        for (String amenity : amenities) {
+            amenitiesEntityList.add(new AmenitiesEntity(amenity));
+        }
+        return amenitiesEntityList;
     }
 
     private HotelAddressDto hotelAddressDtoFromHotelAddressEmbedded(HotelAddressEmbedded hotelAddress) {
