@@ -10,6 +10,7 @@ import com.task.hotel_service_test_task.repository.HotelRepository;
 import com.task.hotel_service_test_task.repository.specification.HotelSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -17,15 +18,11 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class HotelService {
     private final HotelRepository hotelRepository;
     private final HotelMapper hotelMapper;
-
-    public HotelService(@Autowired HotelRepository hotelRepository, @Autowired HotelMapper hotelMapper) {
-        this.hotelRepository = hotelRepository;
-        this.hotelMapper = hotelMapper;
-    }
 
     public HotelShortInfoDto createHotel(HotelCreateRequest request) {
         HotelEntity savedHotel = hotelRepository.save(hotelMapper.hotelEntityFromHotelCreateRequest(request));

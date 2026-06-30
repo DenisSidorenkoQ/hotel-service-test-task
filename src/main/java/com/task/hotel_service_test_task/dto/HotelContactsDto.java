@@ -1,16 +1,11 @@
 package com.task.hotel_service_test_task.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class HotelContactsDto {
     private String phone;
     private String email;
-
-    public HotelContactsDto(String phone, String email) {
-        this.phone = phone;
-        this.email = email;
-    }
-
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
 }
