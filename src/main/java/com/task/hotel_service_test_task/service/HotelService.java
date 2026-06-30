@@ -3,17 +3,17 @@ package com.task.hotel_service_test_task.service;
 import com.task.hotel_service_test_task.dto.HotelCreateRequest;
 import com.task.hotel_service_test_task.dto.HotelFullInfoDto;
 import com.task.hotel_service_test_task.dto.HotelShortInfoDto;
-import com.task.hotel_service_test_task.entity.AmenitiesEntity;
-import com.task.hotel_service_test_task.entity.HotelEntity;
+import com.task.hotel_service_test_task.entity.*;
 import com.task.hotel_service_test_task.mapper.HotelMapper;
 import com.task.hotel_service_test_task.repository.HotelRepository;
 import com.task.hotel_service_test_task.repository.specification.HotelSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -74,5 +74,27 @@ public class HotelService {
         if (isChanged) {
             hotelRepository.save(hotelEntity);
         }
+    }
+
+    @Transactional
+    public Map<String, Long> getHistogram(String param) {
+        List<HotelEntity> hotels = hotelRepository.findAll();
+
+        return switch (param.toLowerCase()) {
+            case HotelEntity_.BRAND -> hotels.stream()
+                    .filter(h -> h.getBrand() != null)
+                    .collect(Collectors.groupingBy(HotelEntity::getBrand, Collectors.counting()));
+            case HotelAddressEmbedded_.CITY -> hotels.stream()
+                    .filter(h -> h.getAddress() != null && h.getAddress().getCity() != null)
+                    .collect(Collectors.groupingBy(h -> h.getAddress().getCity(), Collectors.counting()));
+            case HotelAddressEmbedded_.COUNTRY -> hotels.stream()
+                    .filter(h -> h.getAddress() != null && h.getAddress().getCountry() != null)
+                    .collect(Collectors.groupingBy(h -> h.getAddress().getCountry(), Collectors.counting()));
+            case HotelEntity_.AMENITIES -> hotels.stream()
+                    .flatMap(h -> h.getAmenities().stream())
+                    .collect(Collectors.groupingBy(AmenitiesEntity::getName, Collectors.counting()));
+            default ->
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown grouping parameter: " + param);
+        };
     }
 }
