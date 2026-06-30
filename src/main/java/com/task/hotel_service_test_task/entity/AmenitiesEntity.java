@@ -1,7 +1,11 @@
 package com.task.hotel_service_test_task.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "amenities")
 public class AmenitiesEntity {
@@ -17,16 +21,7 @@ public class AmenitiesEntity {
     @Column
     private String name;
 
-    public AmenitiesEntity() {}
-
     public AmenitiesEntity(String name) {
         this.name = name;
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public HotelEntity getHotel() { return hotel; }
-    public void setHotel(HotelEntity hotel) { this.hotel = hotel; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
 }

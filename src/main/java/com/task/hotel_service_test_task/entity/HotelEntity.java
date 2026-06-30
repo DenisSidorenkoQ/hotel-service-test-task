@@ -1,10 +1,12 @@
 package com.task.hotel_service_test_task.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "hotels")
 public class HotelEntity {
@@ -13,12 +15,13 @@ public class HotelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
-    @Column(length = 2000)
+    @Column
     private String description;
 
+    @Column
     private String brand;
 
     @Embedded
@@ -49,22 +52,5 @@ public class HotelEntity {
         }
         return false;
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public String getBrand() { return brand; }
-    public void setBrand(String brand) { this.brand = brand; }
-    public HotelAddressEmbedded getAddress() { return address; }
-    public void setAddress(HotelAddressEmbedded address) { this.address = address; }
-    public HotelContactsEmbedded getContacts() { return contacts; }
-    public void setContacts(HotelContactsEmbedded contacts) { this.contacts = contacts; }
-    public HotelArrivalTimeEmbedded getArrivalTime() { return arrivalTime; }
-    public void setArrivalTime(HotelArrivalTimeEmbedded arrivalTime) { this.arrivalTime = arrivalTime; }
-    public List<AmenitiesEntity> getAmenities() { return amenities; }
-    public void setAmenities(List<AmenitiesEntity> amenities) { this.amenities = amenities; }
 }
 
