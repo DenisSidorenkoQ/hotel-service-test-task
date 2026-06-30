@@ -1,15 +1,10 @@
-package com.task.hotel_service_test_task.entity;
+package com.task.hotel_service_test_task.dto;
 
-import jakarta.persistence.Embeddable;
-
-@Embeddable
-public class HotelContactsEmbedded {
+public class HotelContactsDto {
     private String phone;
     private String email;
 
-    public HotelContactsEmbedded() {}
-
-    public HotelContactsEmbedded(String phone, String email) {
+    public HotelContactsDto(String phone, String email) {
         this.phone = phone;
         this.email = email;
     }

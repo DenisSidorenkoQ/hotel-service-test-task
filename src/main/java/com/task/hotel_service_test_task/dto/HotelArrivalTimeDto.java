@@ -1,13 +1,13 @@
-package com.task.hotel_service_test_task.entity;
+package com.task.hotel_service_test_task.dto;
 
-import jakarta.persistence.Embeddable;
-
-@Embeddable
-public class HotelArrivalTimeEmbedded {
+public class HotelArrivalTimeDto {
     private String checkIn;
     private String checkOut;
 
-    public HotelArrivalTimeEmbedded() {}
+    public HotelArrivalTimeDto(String checkIn, String checkOut) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
 
     public String getCheckIn() { return checkIn; }
     public void setCheckIn(String checkIn) { this.checkIn = checkIn; }

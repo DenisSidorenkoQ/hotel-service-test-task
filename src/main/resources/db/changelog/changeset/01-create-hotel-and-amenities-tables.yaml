@@ -53,7 +53,7 @@ databaseChangeLog:
                   type: varchar(10)
 
         - createTable:
-            tableName: hotel_amenities
+            tableName: amenities
             columns:
               - column:
                   name: hotel_id
@@ -61,15 +61,15 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: amenity
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
 
         - addForeignKeyConstraint:
-            baseTableName: hotel_amenities
+            baseTableName: amenities
             baseColumnNames: hotel_id
-            constraintName: fk_hotel_amenities_hotel
+            constraintName: fk_amenities_hotel
             referencedTableName: hotels
             referencedColumnNames: id
             onDelete: CASCADE

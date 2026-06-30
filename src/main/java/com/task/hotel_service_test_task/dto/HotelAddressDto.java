@@ -1,18 +1,13 @@
-package com.task.hotel_service_test_task.entity;
+package com.task.hotel_service_test_task.dto;
 
-import jakarta.persistence.Embeddable;
-
-@Embeddable
-public class HotelAddressEmbedded {
+public class HotelAddressDto {
     private Integer houseNumber;
     private String street;
     private String city;
     private String country;
     private String postCode;
 
-    public HotelAddressEmbedded() {}
-
-    public HotelAddressEmbedded(Integer houseNumber, String street, String city, String country, String postCode) {
+    public HotelAddressDto(Integer houseNumber, String street, String city, String country, String postCode) {
         this.houseNumber = houseNumber;
         this.street = street;
         this.city = city;
@@ -30,9 +25,4 @@ public class HotelAddressEmbedded {
     public void setCountry(String country) { this.country = country; }
     public String getPostCode() { return postCode; }
     public void setPostCode(String postCode) { this.postCode = postCode; }
-
-    @Override
-    public String toString() {
-        return String.format("%s %s, %s, %s, %s", houseNumber, street, city, postCode, country);
-    }
 }
