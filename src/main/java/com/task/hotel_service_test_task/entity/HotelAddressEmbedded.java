@@ -2,9 +2,11 @@ package com.task.hotel_service_test_task.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 @AllArgsConstructor
 @Embeddable
 public class HotelAddressEmbedded {
